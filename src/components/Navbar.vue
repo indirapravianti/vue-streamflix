@@ -28,6 +28,12 @@
 
             <v-toolbar-items class="hidden-xs-only">
                 <v-btn depressed color="secondary" class="tertiary--text">
+                    <Voucher class="hidden-xs-only"/>
+                </v-btn>
+            </v-toolbar-items>
+
+            <v-toolbar-items class="hidden-xs-only">
+                <v-btn depressed color="secondary" class="tertiary--text">
                     <v-icon>
                         mdi-bell
                     </v-icon>
@@ -35,11 +41,17 @@
             </v-toolbar-items>
 
             <v-toolbar-items class="hidden-xs-only">
-                <v-btn to="login" text class="tertiary--text">
+                <v-btn to="/login" text class="tertiary--text">
                     Login
                 </v-btn>
             </v-toolbar-items>
-            
+
+            <v-toolbar-items class="hidden-xs-only">
+                <v-btn text class="tertiary--text">
+                    Sign up
+                </v-btn>
+            </v-toolbar-items>
+
         </v-toolbar>
 
                 <v-navigation-drawer v-model="drawer" temporary app class="primary">
@@ -58,15 +70,17 @@
 </template>
 
 <script>
+import Voucher from '@/components/Voucher'
 export default {
+    components: {Voucher},
     data() {
         return {
             drawer: false,
             links: [
                 { icon: 'mdi-home', text: 'Home', route: '/' },
-                { icon: 'mdi-movie', text: 'Movies', route: '/projects' },
-                { icon: 'mdi-television', text: 'TV Shows', route: '/team' },
-                { icon: 'mdi-login', text: 'Login', route: '/team' },
+                { icon: 'mdi-movie', text: 'Movies', route: '/' },
+                { icon: 'mdi-television', text: 'TV Shows', route: '/' },
+                { icon: 'mdi-login', text: 'Login', route: '/login' },
             ]
         }
     }

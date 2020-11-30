@@ -20,6 +20,9 @@ export default {
     components: {
         VerticalCard
     },
-    props: ["movies"]
+    props: {
+      movies: Array,
+      showMovies: Array
+  },
 }
 </script>
