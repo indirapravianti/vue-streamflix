@@ -1,13 +1,13 @@
 <template>
   <div>
       <h2>Now Playing</h2>
-
       <v-row>
           <v-col v-for="movie in movies" v-bind:key="movie.id">
-                  <VerticalCard v-bind:movie="movie"/>
+                  <router-link v-bind:to="'movie/' + movie.id" class="text-decoration-none">
+                    <VerticalCard v-bind:movie="movie"/>
+                  </router-link>
           </v-col>
       </v-row>
-      
   </div>
 </template>
 
@@ -20,23 +20,6 @@ export default {
     components: {
         VerticalCard
     },
-    props: ["movies"],
-    // data: function() {
-    //     return {
-    //         movie : null
-    //     }
-    // },
-    // methods: {
-    //     getData() {
-    //         var that = this
-    //         axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=e7bb075c43180bc41bffe6004eb81113&language=en-US&page=1')
-    //              .then(function(response) {
-    //                 that.movie = response.data
-    //             })
-    //     }
-    // },
-    // mounted: function () {
-    //     this.getData()
-    // }
+    props: ["movies"]
 }
 </script>

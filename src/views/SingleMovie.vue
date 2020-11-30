@@ -27,7 +27,7 @@
                     <p class="font-weight-medium">Production countries: </p>
                     <p>{{ nestedDataToString(movie.production_countries) }}</p>
                     <!-- movie price and buy button -->
-                    <p class="font-weight-medium">Price:</p>
+                    <p class="font-weight-medium">Price: {{price(movie.vote_average)}}</p>
                     <v-btn depressed color="primary" class="pa-5 rounded-tl-xl rounded-br-xl">
                         BUY NOW
                     </v-btn>
@@ -35,23 +35,31 @@
             </v-row>
 
             <h2>Similar Movies</h2>
-            <v-row>
+                    <v-row>
                 <v-col
-                    v-for="n in 5"
-                    :key="n"
+                    v-for="index in 5"
+                    :key="index"
                 >
-                    <VerticalCard v-bind:movie="movie"/>
-                </v-col>
-            </v-row>
+                <router-link v-bind:to="'/movie/' + similarMovies[index].id" class="text-decoration-none">
+                     <v-card
+                        max-height="600"
+                        max-width="200"
+                        align="center"
+                        pa-2
+                    >
+                        <v-img :src="'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + similarMovies[index].poster_path"></v-img>
 
+                        <v-card-title class="subtitle-2 font-weight-bold" align="left">
+                        {{ similarMovies[index].original_title }}
+                        </v-card-title>
 
-            <h2 class="mt-10">Movies you might like</h2>
-            <v-row>
-                <v-col
-                    v-for="n in 5"
-                    :key="n"
-                >
-                    <VerticalCard v-bind:movie="movie"/>
+                        <v-card-actions>
+                        <v-btn class="pa-5 primary white--text" text>
+                            VIEW
+                        </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </router-link>    
                 </v-col>
             </v-row>
         </v-container>
@@ -61,13 +69,9 @@
 
 <script>
 import axios from 'axios'
-import VerticalCard from '@/components/VerticalCard.vue'
 
 export default {
     props: ['id'],
-    components: {
-        VerticalCard
-    },
     data: function() {
         return {
             movie : null,
@@ -92,7 +96,7 @@ export default {
         },
         getSimilar() {
             var that = this
-            axios.get('https://api.themoviedb.org/3/movie/'+this.id+'/similar?api_key=e7bb075c43180bc41bffe6004eb81113')
+            axios.get('https://api.themoviedb.org/3/movie/'+this.id+'/similar?api_key=e7bb075c43180bc41bffe6004eb81113&page=1')
                  .then(function(response) {
                     that.similarMovies = response.data.results
                 })
@@ -102,21 +106,20 @@ export default {
             data.forEach((item) => nestedArray.push(item.name));
             resultString = nestedArray.join(', ');
             return resultString;
+        },
+        price(vote){
+            var moviePrice;
+            if (vote >= 1 && vote <= 3) {
+                moviePrice =  "Rp 3.500"
+            } else if (vote >= 3 && vote <= 6) {
+                moviePrice = "Rp 8.250"
+            } else if (vote >= 6 && vote <= 8) {
+                moviePrice = "Rp 16.350"
+            } else if (vote >= 8 && vote <= 10) {
+                moviePrice = "Rp 21.250"
+            } 
+            return moviePrice;
         }
-        // price() {
-        //     if (movie.vote_average >= 1 && movie.vote_average <= 3){
-        //         return 'Rp 3.500'
-        //     }
-        //     else if ( movie.vote_average >= 3 && movie.vote_average <= 6){
-        //         return 'Rp 8.250'
-        //     }
-        //     else if ( movie.vote_average >= 6 && movie.vote_average <= 8){
-        //         return 'Rp 16.350'
-        //     }
-        //     else if ( movie.vote_average >= 8 && movie.vote_average == 10){
-        //         return 'Rp 21.250'
-        //     }
-        // },
     },
     mounted: function () {
         this.getData(),

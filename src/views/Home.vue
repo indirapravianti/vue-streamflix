@@ -30,15 +30,7 @@ export default {
     mounted: function () {
         this.getData()
     }
-  // data() {
-  //   return {
-  //     movies: []
-  //   }
-  // },
-  // mounted() {
-  //   axios
-  //     .get('https://api.themoviedb.org/3/movie/'+this.id+'?api_key=e7bb075c43180bc41bffe6004eb81113')
-  // }
+
 
 }
 </script>
