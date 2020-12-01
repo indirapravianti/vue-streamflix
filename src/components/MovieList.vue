@@ -12,7 +12,6 @@
 </template>
 
 <script>
-//import axios from 'axios'
 import VerticalCard from '@/components/VerticalCard.vue'
 
 export default {
@@ -21,8 +20,7 @@ export default {
         VerticalCard
     },
     props: {
-      movies: Array,
-      showMovies: Array
-  },
+      movies: Array
+    }
 }
 </script>

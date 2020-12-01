@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <MovieList v-bind:movies="movies" :showMovies="showMovies"/>
+    <MovieList v-bind:movies="movies"/>
     <div class="my-4"> <!-- Pagination -->
       <ul class="pagination pagination-md justify-content-center text-center">
             <li :class="page === 1 ? 'disabled' : ''">
@@ -57,7 +57,5 @@ export default {
     mounted: function () {
         this.getData()
     }
-
-
 }
 </script>
